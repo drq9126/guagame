@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible">
+        <title>game 1</title>
+        <style media="screen">
+            canvas {
+                border: 1px black solid;
+            }
+
+        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+        <script src="main.js"></script>
+    </head>
+    <body>
+        <canvas id="id-canvas" width="400" height="300"></canvas>
+        <script>
+            var log = console.log.bind(console)
+            var canvas = document.querySelector('#id-canvas')
+            var context = canvas.getContext('2d')
+            // var img=document.getElementById("tulip");
+            var img = new Image();
+            img.src = 'images/paddle.png';
+            img.onload = function(){
+            context.drawImage(img,50,300-img.height);
+            /* context.beginPath();
+            context.moveTo(30,96);
+            context.lineTo(70,66);
+            context.lineTo(103,76);
+            context.lineTo(170,15);
+            context.stroke();*/
+            }
+            log('挡板已加载')
+            // events
+            window.addEventListener('keydown',function(event){
+                log(event)
+            })
+        </script>
+    </body>
+</html>
