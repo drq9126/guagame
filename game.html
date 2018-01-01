@@ -33,14 +33,42 @@
                     y: 200,
                     speed: 5,
                 }
+                o.moveLeft = function(){
+                    o.x -= o.speed
+                }
+                o.moveRight = function(){
+                    o.x += o.speed
+                }
                 return o
             }
 
-            var __main = function() {
+
+            var GamePrepare = function() {
+                var g = {}
                 var canvas = document.querySelector('#id-canvas')
                 var context = canvas.getContext('2d')
+                g.canvas = canvas
+                g.context = context
+    
+                setInterval(function(){
+                    // update
+                    g.update()
+                    // clear
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    // draw
+                    g.draw()
+                }, 1000/30)
+
+//49分钟
+
+                return g
+            }
+
+            var __main = function() {
+                var game = GamePrepare()
 
                 var paddle = Paddle()
+
 
                 var leftDown = false
                 var rightDown = false
@@ -63,20 +91,19 @@
                         rightDown = false
                     }
                 })
-                setInterval(function(){
-                    // update x and y
-// 看到37分钟
-                    if(leftDown){
-                        paddle.x -= paddle.speed
-                    }else if(rightDown){
-                        paddle.x += paddle.speed
-                    }
-                    // clamp x 
 
-                    // draw
-                    context.clearRect(0, 0, canvas.width, canvas.height);
-                    context.drawImage(paddle.image,paddle.x,paddle.y);
-                }, 1000/30)
+                game.update = function() {
+                    // update x
+                    if(leftDown){
+                        paddle.moveLeft()
+                    }else if(rightDown){
+                        paddle.moveRight()
+                    }
+                }
+
+                game.draw = function () {
+                    game.context.drawImage(paddle.image,paddle.x,paddle.y);
+                }
             }
 
 
